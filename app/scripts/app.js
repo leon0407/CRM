@@ -1,0 +1,40 @@
+/**
+ * Created by leon on 16/4/25.
+ */
+angular.module("mainApp",
+    [
+        'angular-loading-bar',
+        'infinite-scroll',
+        'pasvaz.bindonce',
+        'ngAnimate',
+        'routeApp',
+        'yxt.controller',
+        'yxt.service',
+        'factoryApp',
+        'filterApp',
+        'directivesApp',
+        'ui.athena'
+    ]);
+
+angular.module("yxt.service",
+    [
+        's.common',
+        's.home',
+        's.clue',
+        's.business',
+        's.contract',
+        's.market',
+        's.team',
+        's.data'
+    ]);
+angular.module("yxt.controller",
+    [
+        'c.common',
+        'c.home',
+        'c.clue',
+        'c.business',
+        'c.contract',
+        'c.market',
+        'c.team',
+        'c.data'
+    ]);

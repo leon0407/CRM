@@ -1,0 +1,44 @@
+<div class="gray-screen">
+    <div class="bg-white pt10 pb10 mb20">
+        <ul class="clue-sort mb20">
+            <li ui-sref="clue.filter({filterType: 0})">
+                <img src="stylesheets/images/myclue.png" alt=""/>
+                <p>我的线索</p>
+            </li>
+            <li ui-sref="clue.filter({filterType: 7})">
+                <img src="stylesheets/images/seven.png" alt=""/>
+                <p>7天未跟</p>
+            </li>
+            <li ui-sref="clue.filter({filterType: 14})">
+                <img src="stylesheets/images/fourteen.png" alt=""/>
+                <p>14天未跟</p>
+            </li>
+            <li ui-sref="clue.filter({filterType: 28})">
+                <img src="stylesheets/images/overtime.png" alt=""/>
+                <p>即将超时</p>
+            </li>
+            <li onclick="dialog('正在开发中，敬请期待...');">
+                <img src="stylesheets/images/sea.png" alt=""/>
+                <p>公海</p>
+            </li>
+        </ul>
+        <ul class="clue-sort">
+            <li ui-sref="clue.filter({filterType: -1})">
+                <img src="stylesheets/images/upload.png" alt=""/>
+                <p>我上报的</p>
+            </li>
+            <li ui-sref="clue.filter({filterType: 1})" ng-if="isManager">
+                <img src="stylesheets/images/team.png" alt=""/>
+                <p>团队线索</p>
+            </li>
+            <li ui-sref="clue.check">
+                <img src="stylesheets/images/search.png" alt=""/>
+                <p>查重</p>
+            </li>
+            <li ui-sref="clue.add">
+                <img src="stylesheets/images/add.png" alt=""/>
+                <p>录入线索</p>
+            </li>
+        </ul>
+    </div>
+</div>

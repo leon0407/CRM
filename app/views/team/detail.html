@@ -1,0 +1,49 @@
+<div class="pt20 pb20 pl10 border-b clearfix">
+    <div class="fl">
+        <p class="fz18 mb5" ng-bind="team.teamName"></p>
+        <p class="gray9">
+            <span class="font-blue2" ng-bind="team.leader"></span>-
+            <span ng-bind="team.domainName"></span>
+        </p>
+    </div>
+    <div class="fr mt10 mr20" ng-show="isManager">
+        <button class="btn btn-xs btn-bg-blue" ng-show="showDel==false;" ng-click="showDel = true;">编辑</button>
+        <button class="btn btn-xs btn-bg-blue" ng-show="showDel==true;" ng-click="showDel = false;">完成</button>
+    </div>
+</div>
+<ul class="member-list member-list-team">
+    <li class="border-b" bindonce ng-repeat="user in team.users">
+        <img ng-src="{{user.headPictureUrl}}" class="mr10 fl avatar-xm" alt=""/>
+        <p>
+            <span ng-bind="user.userName"></span>
+            <span class="fr fz20 mr10">
+                <span ng-show="!showDel">
+                    <a href="tel:{{user.mobile}}" class="mr10"><i class="icon-mobile"></i></a>
+                    <a href="mailto:{{user.email}}"><i class="icon-email"></i></a>
+                </span>
+                <i class="icon-del ml10" ng-show="showDel" ng-click="delMember(user.userId, $index)"></i>
+            </span>
+        </p>
+    </li>
+</ul>
+
+<div class="fixed-bottom" ng-show="isManager">
+    <p ng-click="showSearch()" class="fz16 pt10 pb10 tc font-blue2 border-t bg-white"><i class="iconfont icon-add mr5" style="margin-top:-3px;"></i><span>添加团队成员</span></p>
+</div>
+<div search-bar placehold="姓名" keyword="keyword" search="search" hide-search="hideSearch" class="absolute-top search-box hidden"></div>
+<div class="dark-mask hidden" ng-click="hideSearch()"></div>
+<div class="white-mask white-bg hidden"></div>
+<div class="white-board-search white-bg">
+    <ul class="member-list member-list-team" infinite-scroll="nextPage()" infinite-disabled="isbusy">
+        <li bindonce ng-repeat="member in memberList"
+            ng-click="addMember(member.pid, member.headPictureUrl, member.fullName, member.mobile, member.email)">
+            <span ng-bind="member.fullName"></span>
+        </li>
+    </ul>
+    <div class="loading-wrap" ng-show="isloading">
+        <p>正在加载中...</p>
+        <i class="loading"></i>
+    </div>
+    <div class="tc fz16 gray6 mt30 no-data" ng-show="nodata"></div>
+    <div class="tc fz16 gray6 mt30" ng-show="isloaded">已全部加载完成</div>
+</div>

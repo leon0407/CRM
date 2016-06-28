@@ -1,0 +1,96 @@
+<div class="bg-blue pt30 pb10 pl10 pr10">
+    <p class="fz18 gray16 mb5" ng-bind="business.orgName"></p>
+    <p class="fz12 gray16 mb20">
+        <span>商机：</span>
+        <span ng-bind="business.productName"></span>
+    </p>
+    <div class="bg-building"></div>
+    <div class="clearfix gray16 mb5">
+        <p class="fl mt5" ng-click="editStatus()" class="gray6 fz12">
+            状态：<span ng-bind="business.status | parseStatus" class="mr5"></span><i class="fa fa-angle-right" style="margin-top: -2px;"></i>
+        </p>
+        <div class="fr" ui-sref="business.team({businessId: business.pid})">
+            <span>团队：</span>
+            <img class="avatar-xm mr5" ng-if="$index <= 2" ng-src="{{map.headPictureUrl}}" alt="" ng-repeat="map in business.maps"/>
+            <span class="mr5" ng-if="business.maps.length > 3">...</span>
+            <i class="fa fa-angle-right"></i>
+        </div>
+    </div>
+</div>
+<ul class="tab-default">
+    <li ng-click="tab(0)" ng-class="{active: index==0}">联系人(<span ng-bind="business.contacts.length"></span>)</li>
+    <li ng-click="tab(1)" ng-class="{active: index==1}">跟进处理(<span ng-bind="business.logCount"></span>)</li>
+    <li ng-click="tab(2)" ng-class="{active: index==2}">合同</li>
+</ul>
+<div class="business-contact" ng-show="index==0">
+    <ul class="contact-list mb20">
+        <li ng-repeat="contact in business.contacts">
+            <div class="contact-header">
+                <div class="fl mr10">
+                    <img ng-if="contact.sex==1" src="stylesheets/images/male2.png" width="50" height="50"
+                         alt=""/>
+                    <img ng-if="contact.sex==-1" src="stylesheets/images/female2.png" width="50" height="50"
+                         alt=""/>
+                </div>
+                <div class="fl">
+                    <p class="fz16 mb5" ng-bind="contact.name"></p>
+                    <p class="fz12">
+                        <span class="role mr5" ng-class="{red: contact.type==4||contact.type==5, orange: contact.type==2||contact.type==3, blue: contact.type==0||contact.type==1}" ng-bind="contact.type | parseRole"></span>
+                        <span class="gray8" ng-bind="contact.position"></span>
+                    </p>
+                </div>
+            </div>
+            <ul class="list-single">
+                <li class="mr10">
+                    <span class="fz16">电话</span>
+                    <a class="fr gray8" href="tel:{{contact.mobile}}"><span ng-bind="contact.mobile"></span></a>
+                </li>
+                <li class="border-t mr10">
+                    <span class="fz16">邮箱</span>
+                    <a class="fr gray8" href="mailto:{{contact.email}}"><span ng-bind="contact.email"></span></a>
+                </li>
+                <li class="border-t mr10">
+                    <span class="fz16">备注</span>
+                    <span class="fr gray8 contact-remark" ng-bind="contact.ramark"></span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="fixed-bottom">
+        <p ui-sref="business.contact({businessId: business.pid})" class="fz16 pt10 pb10 tc font-blue2 border-t bg-white"><i class="iconfont icon-add mr5" style="margin-top:-3px;"></i><span>添加联系人</span></p>
+    </div>
+</div>
+<div ng-show="index==1">
+    <ul class="clue-log" infinite-scroll="nextPage()" infinite-disabled="isbusy"
+        infinite-scroll-listen-for-event="emitLoadLog">
+        <li bindonce ng-repeat="clueLog in clueLogList">
+            <p class="clue-log-date fz12 gray6 pl10 pr10">
+                <span bo-bind="clueLog.createTime | dateToString:'yyyy-MM-dd'" class="fl mr5"></span>
+                <span bo-bind="clueLog.createTime | dateToString:'HH:mm'" class="fr"></span>
+            </p>
+
+            <div class="clearfix mt10 mb5">
+                <div class="clue-log-header">
+                    <img bo-src="clueLog.creatorPicUrl" alt="" width="35" height="35" class="mr10"/>
+
+                    <div>
+                        <p bo-bind="clueLog.creatorName"></p>
+
+                        <p class="fz12 gray9" bo-bind="clueLog.status | parseStatus"></p>
+                    </div>
+                </div>
+            </div>
+            <p class="gray6 lh150 ml45" bo-bind="clueLog.intro"></p>
+        </li>
+    </ul>
+    <div class="tc fz16 gray6 mt30 no-data" ng-show="nodata"></div>
+    <div class="tc fz16 gray6 mt30" ng-show="isloading">正在努力加载中...</div>
+    <div class="tc fz16 gray6 mt30" ng-show="isloaded">已全部加载完成</div>
+    <div class="fixed-bottom">
+        <p ui-sref="business.deal({businessId: business.pid})" class="fz16 pt10 pb10 tc font-blue2 border-t bg-white"><i class="iconfont icon-add mr5" style="margin-top:-3px;"></i><span>跟进处理</span></p>
+    </div>
+</div>
+<div ng-show="index==2">
+    <p class="fz16 mt20 tc gray8">正在开发中，敬请期待...</p>
+</div>
+

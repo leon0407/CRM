@@ -1,0 +1,78 @@
+<div class="gray-screen">
+    <ul class="tab-default bg-white">
+        <li ng-click="tab(0)" ng-class="{active: index==0}">跟进日志</li>
+        <li ng-click="tab(1)" ng-class="{active: index==1}">高级处理</li>
+    </ul>
+    <div ng-show="index == 0">
+        <div class="bar-gray">跟进纪录</div>
+        <textarea name="" id="" cols="30" rows="4" class="text-box" placeholder="请输入跟进纪录" ng-model="clueLog"></textarea>
+        <div class="bar-gray">跟进操作</div>
+        <div class="clue-log-status bg-white clearfix">
+            <div class="clearfix">
+                <div ng-show="clue.isEffective == 0">
+                    <div class="fl ml10 mr20" ng-click="effectiveValue = 1">
+                        <i class="iconfont fz14" ng-class="{'icon-radio-dot font-blue2': effectiveValue == 1, 'icon-radio': effectiveValue != 1}"></i>
+                        <span>线索有效</span>
+                    </div>
+                    <div class="fl mr20" ng-click="effectiveValue = -1">
+                        <i class="iconfont fz14" ng-class="{'icon-radio-dot font-blue2': effectiveValue == -1, 'icon-radio': effectiveValue != -1}"></i>
+                        <span>线索无效，退回</span>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="effectiveValue == 1" ng-class="{'border-t': effective != 1}">
+                <div class="ml10" ng-click="checked = !checked">
+                    <i class="iconfont" ng-class="{'icon-checkbox-checked font-blue2': checked, 'icon-checkbox-unchecked': !checked}"></i>
+                    <span>转为商机</span>
+                </div>
+            </div>
+        </div>
+        <div class="mt20 ml10 mr10">
+            <button class="btn btn-lg btn-bg-blue" ng-click="addClueLog(clueLog)">保存</button>
+        </div>
+    </div>
+    <div ng-show="index == 1">
+        <div class="absolute-bottom">
+            <div class="ml10 mr10 mb20">
+                <button class="btn btn-lg btn-bg-red" ng-click="showBackReason = true;">放弃</button>
+                <button class="btn btn-lg btn-bg-blue mt10" ng-if="isManager" ng-click="showSearch()">转让</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div search-bar placehold="姓名" keyword="keyword" search="search" hide-search="hideSearch" class="absolute-top search-box hidden"></div>
+<div class="dark-mask hidden" ng-click="hideSearch()"></div>
+<div class="white-mask white-bg hidden"></div>
+<div class="white-board white-bg">
+    <ul class="list-single" infinite-scroll="nextPage()" infinite-disabled="isbusy">
+        <li ng-repeat="user in userList" class="border-t" ng-bind="user.fullName" ng-click="getUser(user.pid, user.fullName)"></li>
+    </ul>
+    <div class="loading-wrap" ng-show="isloading">
+        <p>正在加载中...</p>
+        <i class="loading"></i>
+    </div>
+    <div class="tc fz16 gray6 mt30 no-data" ng-show="nodata"></div>
+    <div class="tc fz16 gray6 mt30" ng-show="isloaded">已全部加载完成</div>
+</div>
+<div class="backDialog show" ng-show="showBackReason">
+    <div class="dialog-cnt">
+        <div class="pd10">
+            <textarea name="" class="backReason" ng-model="backReason" cols="" rows="4" placeholder="请输入退回原因"></textarea>
+        </div>
+        <div class="dialog-ft">
+            <button type="button" ng-click="returnCase(backReason)">确定退回</button>
+            <button type="button" class="gray8" ng-click="showBackReason=false;backReason=''">取消</button>
+        </div>
+    </div>
+</div>
+<div class="backDialog show" ng-show="showTransferHint">
+    <div class="dialog-cnt">
+        <div class="pt40 pb40 fz16 tc">
+            确定将本线索转让给<span ng-bind="transferUserName" class="font-blue2"></span>吗？
+        </div>
+        <div class="dialog-ft">
+            <button type="button" ng-click="transferCase()">确定</button>
+            <button type="button" class="gray8" ng-click="showTransferHint = false;">取消</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<!--<div class="search bg-gray">-->
+    <!--<input type="text" ng-model="orgName" ng-keyup="searchClueByOrgName(orgName)" placeholder="   &#xe60a  搜索"/>-->
+<!--</div>-->
+<div search-bar placehold="公司名称" keyword="keyword" search="search" hide-search="hideSearch" class="search-box">
+</div>
+<!--<ul class="check-list">-->
+    <!--<li ng-repeat="check in checkList" ui-sref="clue.check.detail({orgName: check.orgName})">-->
+        <!--<p class="fz18 mb5" ng-bind="check.orgName"></p>-->
+        <!--<p class="fz12 gray3">查询到<span class="font-blue2 ml5 mr5" ng-bind="check.cnt"></span>条记录</p>-->
+    <!--</li>-->
+<!--</ul>-->
+<ul class="check-list" infinite-scroll="nextPage()" infinite-disabled="isbusy" infinite-scroll-listen-for-event="emitSearch">
+    <li ng-repeat="check in checkList" ui-sref="clue.check.detail({checkId: check.pid})">
+        <p class="fz16 mb5" ng-bind="check.orgName"></p>
+        <p class="gray8" ng-bind="check.productName"></p>
+    </li>
+</ul>
+<!--<div class="tc fz18 gray9 mt30" ng-if="checkList.length == 0">-->
+    <!--暂无相关线索-->
+<!--</div>-->
+<div class="loading-wrap" ng-show="isloading">
+    <p>正在加载中...</p>
+    <i class="loading"></i>
+</div>
+<div class="tc fz16 gray6 mt30" ng-show="nodata">暂无相关线索</div>
+<div class="tc fz16 gray6 mt30" ng-show="isloaded">已全部加载完成</div>

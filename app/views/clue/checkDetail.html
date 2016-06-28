@@ -1,0 +1,35 @@
+<div class="ml10">
+    <div class="pb10 mt20" style="border-bottom: 1px solid #efefef;">
+        <p class="fz18 gray3 mb10" ng-bind="clue.orgName"></p>
+    </div>
+    <ul class="orgProduct-list">
+        <li>
+            <p>
+                <span>联系人：</span>
+                <span ng-bind="clue.contacts[0].name"></span>
+            </p>
+            <p>
+                <span>产<i></i>品：</span>
+                <span ng-bind="clue.productName"></span>
+            </p>
+            <p>
+                <span>类<i></i>型：</span>
+                <span ng-if="clue.type == 0">线索</span>
+                <span ng-if="clue.type == 1">商机</span>
+            </p>
+            <p>
+                <span>状<i></i>态：</span>
+                <span ng-bind="clue.status | parseStatus">线索</span>
+            </p>
+            <p>
+                <span>负责人：</span>
+                <span ng-bind="clue.maps[0].userName" class="font-blue1"></span>
+                <span ng-if="clue.maps.length==0" class="gray9">暂未分配</span>
+            </p>
+            <p>
+                <span>时<i></i>间：</span>
+                <span ng-bind="clue.createTime | dateToString:'yyyy-MM-dd'"></span>
+            </p>
+        </li>
+    </ul>
+</div>

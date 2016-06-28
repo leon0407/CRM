@@ -1,0 +1,125 @@
+<div class="bg-blue pt30 pb20 pl20 pr20 clearfix">
+    <div class="clearfix">
+        <div class="fl">
+            <img ng-if="clue.contacts[0].sex==1" src="stylesheets/images/male.png" width="70" height="70"
+                 alt=""/>
+            <img ng-if="clue.contacts[0].sex==-1" src="stylesheets/images/female.png" width="70" height="70"
+                 alt=""/>
+        </div>
+        <div class="gray16" style="margin-left: 83px;;">
+            <p class="fz16 mb5" ng-bind="clue.contacts[0].name"></p>
+            <p ng-bind="clue.orgName" class="text-trim"></p>
+            <p ng-bind="clue.contacts[0].position"></p>
+        </div>
+    </div>
+    <p class="fr mt10 font-yellow">状态：<span ng-bind="clue.status | parseStatus"></span></p>
+</div>
+<ul class="tab-default">
+    <li ng-click="tab(0)" ng-class="{active: index==0}">详细资料</li>
+    <li ng-click="tab(1)" ng-class="{active: index==1}">跟进处理(<span ng-bind="clue.logCount"></span>)</li>
+</ul>
+<div class="clue-info" ng-show="index==0">
+    <h3>基本信息</h3>
+    <ul class="list-single">
+        <li class="border-t">
+            <span>姓名</span>
+            <span ng-bind="clue.contacts[0].name" class="fr mr10 gray8"></span>
+        </li>
+        <li class="border-t">
+            <span>公司名称</span>
+            <span ng-bind="clue.orgName" class="fr mr10 gray8 clue-remark"></span>
+        </li>
+        <li class="border-t">
+            <span>部门</span>
+            <span ng-bind="clue.contacts[0].department" class="fr mr10 gray8"></span>
+        </li>
+        <li class="border-t">
+            <span>职务</span>
+            <span ng-bind="clue.contacts[0].position" class="fr mr10 gray8"></span>
+        </li>
+        <li class="border-t">
+            <span>产品需求</span>
+            <span ng-bind="clue.productName" class="fr mr10 gray8"></span>
+        </li>
+    </ul>
+    <h3>联系信息</h3>
+    <ul class="list-single">
+        <li class="border-t">
+            <span>电话</span>
+            <a href="tel:{{clue.contacts[0].mobile}}" class="fr mr10 gray8"><span ng-bind="clue.contacts[0].mobile"></span></a>
+        </li>
+        <li class="border-t">
+            <span>邮箱</span>
+            <a href="mailto:{{clue.contacts[0].email}}" class="fr mr10 gray8"><span ng-bind="clue.contacts[0].email"></span></a>
+        </li>
+        <li class="border-t">
+            <span>地址</span>
+            <span ng-bind="clue.address" class="fr mr10 gray8 clue-remark"></span>
+        </li>
+    </ul>
+    <h3>扩展信息</h3>
+    <ul class="list-single">
+        <li class="border-t">
+            <span>性别</span>
+            <span ng-if="clue.contacts[0].sex==1" class="fr mr10 gray8">男</span>
+            <span ng-if="clue.contacts[0].sex==-1" class="fr mr10 gray8">女</span>
+        </li>
+        <li class="border-t">
+            <span>所属行业</span>
+            <span ng-bind="clue.industryName" class="fr mr10 gray8"></span>
+        </li>
+        <li class="border-t">
+            <span>所在地区</span>
+            <span ng-bind="clue.areaName" class="fr mr10 gray8"></span>
+        </li>
+        <li class="border-t">
+            <span>备注</span>
+            <span ng-bind="clue.contacts[0].ramark" class="fr mr10 gray8 clue-remark"></span>
+        </li>
+        <li ng-show="!isMyCharge" class="border-t">
+            <span>负责人</span>
+            <span class="fr mr10 gray8"><span ng-bind="clue.maps[0].userName"></span>/<span ng-bind="clue.status | parseStatus"></span></span>
+        </li>
+    </ul>
+    <h3>线索来源</h3>
+    <ul class="list-single">
+        <li class="border-t">
+            <span>线索来源</span>
+            <span class="fr mr10 gray8" ng-bind="clue.sourceType | parseSource"></span>
+        </li>
+        <li class="border-t">
+            <span>来源说明</span>
+            <span ng-bind="clue.sourceDes" class="fr mr10 gray8 clue-remark"></span>
+        </li>
+    </ul>
+</div>
+<div ng-show="index==1">
+    <ul class="clue-log" infinite-scroll="nextPage()" infinite-disabled="isbusy"
+        infinite-scroll-listen-for-event="emitLoadLog">
+        <li bindonce ng-repeat="clueLog in clueLogList">
+            <p class="clue-log-date fz12 gray9 pl10 pr10">
+                <span bo-bind="clueLog.createTime | dateToString:'yyyy-MM-dd'" class="fl mr5"></span>
+                <span class="fr" bo-bind="clueLog.createTime | dateToString:'HH:mm'"></span>
+            </p>
+
+            <div class="clearfix mt10 mb5">
+                <div class="clue-log-header">
+                    <img bo-src="clueLog.creatorPicUrl" alt="" width="35" height="35" class="mr10"/>
+
+                    <div>
+                        <p bo-bind="clueLog.creatorName" class="fz16"></p>
+
+                        <p class="fz12 gray9" bo-bind="clueLog.status | parseStatus"></p>
+                    </div>
+                </div>
+            </div>
+            <p class="gray6 lh150 ml45" bo-bind="clueLog.intro"></p>
+        </li>
+    </ul>
+    <div class="tc fz16 gray6 mt30 no-data" ng-show="nodata"></div>
+    <div class="tc fz16 gray6 mt30" ng-show="isloading">正在努力加载中...</div>
+    <div class="tc fz16 gray6 mt30" ng-show="isloaded">已全部加载完成</div>
+    <div ng-if="(clue.isEffective != -1 && isMyCharge) || isManager" class="fixed-bottom">
+        <p ui-sref="clue.deal({clueId: clue.pid})" class="fz16 pt10 pb10 tc font-blue2 border-t bg-white"><i class="iconfont icon-add mr5" style="margin-top:-3px;"></i><span>跟进处理</span></p>
+    </div>
+</div>

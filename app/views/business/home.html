@@ -1,0 +1,32 @@
+<div class="gray-screen">
+    <div class="bg-white pt10 pb10 mb20">
+        <ul class="clue-sort">
+            <li ui-sref="business.filter({filterType: 0})">
+                <img src="stylesheets/images/business.png" alt=""/>
+                <p>我的商机</p>
+            </li>
+            <li ui-sref="business.filter({filterType: 7})">
+                <img src="stylesheets/images/seven.png" alt=""/>
+                <p>7天未跟</p>
+            </li>
+            <li ui-sref="business.filter({filterType: 14})">
+                <img src="stylesheets/images/fourteen.png" alt=""/>
+                <p>14天未跟</p>
+            </li>
+            <li ui-sref="business.filter({filterType: 28})">
+                <img src="stylesheets/images/overtime.png" alt=""/>
+                <p>即将超时</p>
+            </li>
+            <li ui-sref="business.filter({filterType: 2})">
+                <img src="stylesheets/images/assist.png" alt=""/>
+                <p>我协助的</p>
+            </li>
+        </ul>
+        <ul class="clue-sort mt20" ng-if="isManager">
+            <li ui-sref="business.filter({filterType: 1})">
+                <img src="stylesheets/images/team-business.png" alt=""/>
+                <p>团队商机</p>
+            </li>
+        </ul>
+    </div>
+</div>

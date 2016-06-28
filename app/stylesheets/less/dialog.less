@@ -1,0 +1,139 @@
+.dialog, .backDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  background: rgba(0, 0, 0, .4);
+  display: none;
+  &.show{
+    display: -webkit-box;
+  }
+  .dialog-hd {
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    position: relative;
+    border-bottom: solid 1px #e4e4e4;
+    h3{
+      font-size: 16px;
+      font-weight: normal;
+    }
+  }
+  .dialog-cnt {
+    border-radius: 6px;
+    width: 270px;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    pointer-events: auto;
+    background-color: rgba(253, 253, 253, .95);
+    position: relative;
+  }
+  .dialog-bd {
+    min-height: 71px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 18px;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical;
+    & > h4 {
+      margin-bottom: 4px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-weight: normal;
+    }
+    & > div, & > ul {
+      width: 100%
+    }
+  }
+  .dialog-ft {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    display: -webkit-box;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    border-top: 1px solid #e0e0e0;
+    height: 42px;
+    line-height: 42px;
+    button {
+      color: #00a5e0;
+      text-align: center;
+      border: none;
+      border-right: 1px #e0e0e0 solid;
+      width: 100%;
+      line-height: 42px;
+      background: transparent;
+      display: block;
+      margin: 0 !important;
+      -webkit-box-flex: 1;
+      &:focus{
+        outline: none;
+      }
+      &:active {
+        background-color: rgba(0, 0, 0, .1) !important;
+      }
+      &:first-child {
+        border-bottom-left-radius: 6px
+      }
+      &:last-child {
+         border-right: 0;
+         border-bottom-right-radius: 6px
+      }
+    }
+  }
+  .dialog-close{
+    &:before {
+      font-family: iconfont !important;
+      font-size: 32px;
+      line-height: 44px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-stroke-width: .2px;
+      display: block;
+      color: rgba(0, 0, 0, .5);
+      content: "";
+      color: #828282;
+      display: block;
+      line-height: 32px;
+      position: absolute;
+      top: 3px;
+      right: 3px;
+    }
+    &:active {
+      opacity: .5
+    }
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .dialog-ft {
+    position: relative;
+    border: 0;
+    background-position: left top;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, #e0e0e0), to(#e0e0e0));
+    background-repeat: repeat-x;
+    -webkit-background-size: 100% 1px
+  }
+
+  .dialog-ft button {
+    border-right: 0;
+    background-position: right top;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, #e0e0e0), to(#e0e0e0));
+    background-repeat: repeat-y;
+    -webkit-background-size: 1px 100%
+  }
+
+  .dialog-ft button:last-child {
+    background: 0 0
+  }
+}

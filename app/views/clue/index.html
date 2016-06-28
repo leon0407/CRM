@@ -1,0 +1,110 @@
+<div class="clue">
+    <div class="clue-header tc">
+        <div class="sort-col br fl">
+            <span class="gray6 fz16 mr5">产品</span>
+            <i class="arrow-down fa fa-caret-down fz16 gray11"></i>
+        </div>
+        <div class="sort-col br fl" ng-click="sortClue()">
+            <span class="gray6 fz16 mr5">时间</span>
+            <i class="arrow-control" ng-class="{active: !desc}">
+                <i class="arrow-up fa fa-caret-up fz16 gray11"></i>
+                <i class="arrow-down fa fa-caret-down fz16 gray11"></i>
+            </i>
+        </div>
+        <div class="sort-right fl" ng-click="showSearch()">
+            <i class="fa fa-search fz20 gray11"></i>
+        </div>
+    </div>
+    <ul class="clue-list" infinite-scroll="nextPage()" infinite-disabled="isbusy">
+        <li bindonce ng-repeat="clue in clueList" ui-sref="clue.detail({clueId: clue.pid})">
+            <!--<i class="icon-new" ng-if="(clue.maps[0].createTime | daysAgo) == 0"></i>-->
+            <p class="fz16 mb5" bo-bind="clue.contacts[0].name"></p>
+            <p class="fz13 gray8">
+                <span bo-bind="clue.orgName" class="mr10"></span>
+                <span bo-bind="clue.contacts[0].position"></span>
+            </p>
+            <p class="fz13 gray8">
+                <span ng-bind="clue.productName"></span>
+                <span class="fr mr10" ng-switch="filterType">
+                    <!-- 我的线索 -->
+                    <!--<span ng-switch-when="0">-->
+                        <!--<span ng-if="(clue.lastLogTime | daysAgo) == 0">今天跟进</span>-->
+                        <!--<span ng-if="(clue.lastLogTime | daysAgo) > 0"><span ng-bind="clue.lastLogTime | daysAgo"></span>天前跟进</span>-->
+                    <!--</span>-->
+                    <!-- 我上报的线索 -->
+                    <span ng-switch-when="-1">
+                        <span ng-if="clue.maps.length == 0">未分配</span>
+                        <span ng-if="clue.maps.length > 0">
+                            <span ng-bind="clue.maps[0].userName"></span>
+                        </span>
+                    </span>
+                    <!-- 7天未跟进的线索 -->
+                    <span ng-switch-when="7" class="font-red">
+                       <span ng-bind="clue.lastLogTime | daysAgo"></span>天未跟进
+                    </span>
+                    <!-- 14天未跟进的线索 -->
+                    <span ng-switch-when="14" class="font-red">
+                        <span ng-bind="clue.lastLogTime | daysAgo"></span>天未跟进
+                    </span>
+                    <!-- 团队线索 -->
+                    <span ng-switch-when="1" ng-bind="clue.maps[0].userName"></span>
+                </span>
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="loading-wrap" ng-show="isloading">
+    <p>正在加载中...</p>
+    <i class="loading"></i>
+</div>
+<div class="tc fz16 gray6 mt30 no-data" ng-show="nodata"></div>
+<div class="tc fz16 gray6 mt30" ng-show="isloaded">已全部加载完成</div>
+
+<div search-bar placehold="公司/产品" keyword="keyword" search="search" hide-search="hideSearch" class="absolute-top search-box hidden"></div>
+<div class="dark-mask hidden" ng-click="hideSearch()"></div>
+<div class="white-mask white-bg hidden"></div>
+<div class="white-board-search white-bg">
+    <ul class="clue-list" infinite-scroll="nextPageSearch()" infinite-disabled="isbusySearch">
+        <li bindonce ng-repeat="clue in clueSearchList" ui-sref="clue.detail({clueId: clue.pid})">
+            <!--<i class="icon-new" ng-if="(clue.maps[0].createTime | daysAgo) == 0"></i>-->
+            <p class="fz16 mb5" bo-bind="clue.contacts[0].name"></p>
+            <p class="fz13 gray8">
+                <span bo-bind="clue.orgName" class="mr10"></span>
+                <span bo-bind="clue.contacts[0].position"></span>
+            </p>
+            <p class="fz13 gray8">
+                <span ng-bind="clue.productName"></span>
+                <span class="fr mr10" ng-switch="filterType">
+                    <!-- 我的线索 -->
+                    <!--<span ng-switch-when="0">-->
+                        <!--<span ng-if="(clue.lastLogTime | daysAgo) == 0">今天跟进</span>-->
+                        <!--<span ng-if="(clue.lastLogTime | daysAgo) > 0"><span ng-bind="clue.lastLogTime | daysAgo"></span>天前跟进</span>-->
+                    <!--</span>-->
+                    <!-- 我上报的线索 -->
+                    <span ng-switch-when="-1">
+                        <span ng-if="clue.maps.length == 0">未分配</span>
+                        <span ng-if="clue.maps.length > 0">
+                            <span ng-bind="clue.maps[0].userName"></span>
+                        </span>
+                    </span>
+                    <!-- 7天未跟进的线索 -->
+                    <span ng-switch-when="7" class="font-red">
+                       <span ng-bind="clue.lastLogTime | daysAgo"></span>天未跟进
+                    </span>
+                    <!-- 14天未跟进的线索 -->
+                    <span ng-switch-when="14" class="font-red">
+                        <span ng-bind="clue.lastLogTime | daysAgo"></span>天未跟进
+                    </span>
+                    <!-- 团队线索 -->
+                    <span ng-switch-when="1" ng-bind="clue.maps[0].userName"></span>
+                </span>
+            </p>
+        </li>
+    </ul>
+    <div class="loading-wrap" ng-show="isloadingSearch">
+        <p>正在加载中...</p>
+        <i class="loading"></i>
+    </div>
+    <div class="tc fz16 gray6 mt30 no-data" ng-show="nodataSearch"></div>
+    <div class="tc fz16 gray6 mt30" ng-show="isloadedSearch">已全部加载完成</div>
+</div>

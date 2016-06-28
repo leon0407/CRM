@@ -1,0 +1,104 @@
+<div class="clue-form-add">
+    <div class="clue-info-save">
+        <div class="fixed">
+            <div class="fl font-blue2" ng-click="goToCheckClue()">
+                <i class="fa fa-search fz18 ml10"></i>
+                <span>线索查重</span>
+            </div>
+            <button class="btn btn-xs btn-bg-blue fr mr10" ng-click="addClue()">保存</button>
+        </div>
+    </div>
+    <div class="clue-info clue-info-add clue-main">
+        <h3>基本信息</h3>
+        <p>
+            <span>姓名</span>
+            <input ng-blur="passValue('contactName')" type="text" placeholder="必填" ng-model="contactName"/>
+        </p>
+        <p>
+            <span>公司名称</span>
+            <span ui-sref="clue.searchOrgName">
+                <span ng-bind="companyName" class="gray8"></span>
+                <i ng-hide="companyName.length > 0" class="fa fa-search fr mt10 fz24 gray10"></i>
+            </span>
+        </p>
+
+        <p>
+            <span>部门</span>
+            <input ng-blur="passValue('department')" type="text" placeholder="必填" ng-model="department"/>
+        </p>
+
+        <p>
+            <span>职务</span>
+            <input ng-blur="passValue('job')" type="text" placeholder="必填" ng-model="job"/>
+        </p>
+
+        <p>
+            <span>产品需求</span>
+            <span ui-sref="product">
+                <span ng-bind="productName" class="gray8"></span>
+                <span ng-hide="productName.length > 0">选择</span>
+            </span>
+        </p>
+
+        <h3>联系信息</h3>
+
+        <p>
+            <span>电话</span>
+            <input ng-blur="passValue('mobile')" type="text" placeholder="必填" ng-model="mobile"/>
+        </p>
+
+        <p>
+            <span>邮箱</span>
+            <input ng-blur="passValue('email')" type="text" placeholder="选填" ng-model="email"/>
+        </p>
+
+        <p>
+            <span>地址</span>
+            <input ng-blur="passValue('address')" type="text" placeholder="选填" ng-model="address"/>
+        </p>
+
+        <h3>扩展信息</h3>
+
+        <p>
+            <span>性别</span>
+            <span class="gray8">
+                <i class="iconfont icon-radio gray8 mr5" ng-click="genderIndex = 1; gender = '男'; passValue('genderIndex', genderIndex);";
+                   ng-class="{'font-blue2 icon-radio-dot': genderIndex == 1}"></i>男
+                <i class="iconfont icon-radio gray8 ml10 mr5" ng-click="genderIndex = -1; gender = '女'; passValue('genderIndex', genderIndex);"
+                    ng-class="{'font-blue2 icon-radio-dot': genderIndex == -1}"></i>女
+            </span>
+        </p>
+
+        <p>
+            <span>所属行业</span>
+            <span ui-sref="industry">
+                <span ng-bind="subIndustryName" class="gray8"></span>
+                <span ng-hide="subIndustryName.length > 0">选择</span>
+            </span>
+        </p>
+
+        <p>
+            <span>所在地区</span>
+            <span ui-sref="area">
+                <span ng-bind="areaName" class="gray8"></span>
+                <span ng-hide="areaName.length > 0">选择</span>
+            </span>
+        </p>
+
+        <div class="mr10 ml10 border-t">
+            <textarea class="gray8" ng-blur="passValue('remark')" cols="30" rows="4" ng-model="remark" placeholder="输入备注"></textarea>
+        </div>
+
+        <h3>线索来源</h3>
+        <p>
+            <span>线索来源</span>
+            <span ui-sref="clue.source">
+                <span ng-bind="sourceName" class="gray8"></span>
+                <span ng-hide="sourceName.length > 0">选择</span>
+            </span>
+        </p>
+        <div class="mr10 ml10 border-t">
+            <textarea class="gray8" ng-blur="passValue('sourceDes')" cols="30" rows="4" ng-model="sourceDes" placeholder="来源说明"></textarea>
+        </div>
+    </div>
+</div>

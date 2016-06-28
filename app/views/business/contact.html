@@ -1,0 +1,73 @@
+<div ng-show="showAddList">
+    <div class="clue-info clue-info-add">
+        <p>
+            <span>姓名</span>
+            <input type="text" placeholder="必填" ng-model="contactName"/>
+        </p>
+        <p>
+            <span>部门</span>
+            <input type="text" placeholder="必填" ng-model="department"/>
+        </p>
+        <p>
+            <span>职务</span>
+            <input type="text" placeholder="必填" ng-model="job"/>
+        </p>
+        <p>
+            <span>电话</span>
+            <input type="text" placeholder="必填" ng-model="mobile"/>
+        </p>
+        <p>
+            <span>邮箱</span>
+            <input type="text" placeholder="选填" ng-model="email"/>
+        </p>
+        <p>
+            <span>性别</span>
+            <span class="gray8" ng-init="genderIndex = 1">
+                <i class="iconfont icon-radio gray8 mr5" ng-click="genderIndex = 1; gender = '男'";
+                   ng-class="{'font-blue2 icon-radio-dot': genderIndex == 1}"></i>男
+                <i class="iconfont icon-radio ml10 mr5" ng-click="genderIndex = -1; gender = '女'"
+                   ng-class="{'font-blue2 icon-radio-dot': genderIndex == -1}"></i>女
+            </span>
+        </p>
+        <p class="border-b">
+            <span>角色</span>
+            <span ng-click="showInput('role')">
+                <span class="gray8" ng-bind="role"></span>
+                <span ng-hide="role.length > 0">选择</span>
+            </span>
+        </p>
+        <div class="mr10 ml10 border-t">
+            <!--<span>备注</span>-->
+            <textarea ng-model="remark" cols="30" rows="4" placeholder="输入备注"></textarea>
+        </div>
+    </div>
+    <div class="mt20 mb30 ml10 mr10">
+        <button class="btn btn-lg btn-bg-blue mb10" ng-click="addContact()">确定</button>
+        <button class="btn btn-lg btn-text-blue" ui-sref="business.detail({businessId: businessId})">取消</button>
+    </div>
+</div>
+
+<div class="input-box" ng-hide="showAddList">
+    <div ng-show="tagName == 'role'" class="mt10 mb20 fz16">
+        <ul class="list-single mb30">
+            <li class="border-t" ng-click="selectRole(0)" ng-class="{'font-blue2': roleIndex == 0 }">
+                发起人
+            </li>
+            <li class="border-t" ng-click="selectRole(1)" ng-class="{'font-blue2': roleIndex == 1 }">
+                使用者
+            </li>
+            <li class="border-t" ng-click="selectRole(2)" ng-class="{'font-blue2': roleIndex == 2 }">
+                影响者
+            </li>
+            <li class="border-t" ng-click="selectRole(3)" ng-class="{'font-blue2': roleIndex == 3 }">
+                守门人
+            </li>
+            <li class="border-t" ng-click="selectRole(4)" ng-class="{'font-blue2': roleIndex == 4 }">
+                购买者
+            </li>
+            <li class="border-t border-b" ng-click="selectRole(5)" ng-class="{'font-blue2': roleIndex == 5 }">
+                决策者
+            </li>
+        </ul>
+    </div>
+</div>

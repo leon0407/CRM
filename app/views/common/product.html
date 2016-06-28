@@ -1,0 +1,13 @@
+<div class="product-wrap">
+    <p class="gray8 mb10 mt10">产品列表</p>
+    <ul class="product-list">
+        <li bindonce ng-repeat="product in productList" ng-click="toggle($index)" data-productid="{{product.pid}}">
+            <span class="fz16" bo-bind="product.name"></span>
+            <i class="fa fa-square-o unchecked"></i>
+            <i class="fa fa-check-square checked off"></i>
+        </li>
+    </ul>
+    <p class="gray8 mb10 mt10">需求描述</p>
+    <textarea name="" id="" cols="" rows="4" ng-model="productRemark"></textarea>
+    <button class="btn btn-lg btn-bg-blue mt10" ng-click="productToAdd()">确定</button>
+</div>
